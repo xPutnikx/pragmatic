@@ -5,85 +5,55 @@ description: Use when completing tasks, implementing major features, or before m
 
 # Requesting Code Review
 
-Dispatch superpowers:code-reviewer subagent to catch issues before they cascade. The reviewer gets precisely crafted context for evaluation — never your session's history. This keeps the reviewer focused on the work product, not your thought process, and preserves your own context for continued work.
+Review your own work before presenting it as complete. The review happens in the current session where you have full context — no subagents, no dispatching.
 
-**Core principle:** Review early, review often.
+**Core principle:** Review early, review often. Catch issues before they compound.
 
-## When to Request Review
+## When to Review
 
 **Mandatory:**
-- After each task in subagent-driven development
-- After completing major feature
+- After completing a major feature
 - Before merge to main
 
 **Optional but valuable:**
-- When stuck (fresh perspective)
+- When stuck (stepping back gives perspective)
 - Before refactoring (baseline check)
-- After fixing complex bug
+- After fixing a complex bug
 
-## How to Request
+## How to Review
 
-**1. Get git SHAs:**
+**1. Get the diff:**
 ```bash
-BASE_SHA=$(git rev-parse HEAD~1)  # or origin/main
-HEAD_SHA=$(git rev-parse HEAD)
+git diff origin/main...HEAD
 ```
 
-**2. Dispatch code-reviewer subagent:**
+**2. Review against the plan/requirements:**
+- Does the implementation match what was planned?
+- Is anything missing?
+- Is anything extra that wasn't asked for?
 
-Use Task tool with superpowers:code-reviewer type, fill template at `code-reviewer.md`
+**3. Check code quality:**
+- DRY — any duplicated logic?
+- SOLID — single responsibility, clean interfaces?
+- Are functions focused and well-named?
+- Are edge cases handled?
+- Are tests meaningful (not testing fakes)?
 
-**Placeholders:**
-- `{WHAT_WAS_IMPLEMENTED}` - What you just built
-- `{PLAN_OR_REQUIREMENTS}` - What it should do
-- `{BASE_SHA}` - Starting commit
-- `{HEAD_SHA}` - Ending commit
-- `{DESCRIPTION}` - Brief summary
+**4. Check completeness:**
+- Is the feature wired end-to-end? (backend → frontend, function → caller)
+- Are there missing error states, loading states, empty states?
+- Does it actually run, not just compile?
 
-**3. Act on feedback:**
-- Fix Critical issues immediately
-- Fix Important issues before proceeding
-- Note Minor issues for later
-- Push back if reviewer is wrong (with reasoning)
-
-## Example
-
-```
-[Just completed Task 2: Add verification function]
-
-You: Let me request code review before proceeding.
-
-BASE_SHA=$(git log --oneline | grep "Task 1" | head -1 | awk '{print $1}')
-HEAD_SHA=$(git rev-parse HEAD)
-
-[Dispatch superpowers:code-reviewer subagent]
-  WHAT_WAS_IMPLEMENTED: Verification and repair functions for conversation index
-  PLAN_OR_REQUIREMENTS: Task 2 from docs/superpowers/plans/deployment-plan.md
-  BASE_SHA: a7981ec
-  HEAD_SHA: 3df7661
-  DESCRIPTION: Added verifyIndex() and repairIndex() with 4 issue types
-
-[Subagent returns]:
-  Strengths: Clean architecture, real tests
-  Issues:
-    Important: Missing progress indicators
-    Minor: Magic number (100) for reporting interval
-  Assessment: Ready to proceed
-
-You: [Fix progress indicators]
-[Continue to Task 3]
-```
+**5. Act on findings:**
+- Fix issues you find before claiming completion
+- If a fix would be large, flag it to the developer
+- Don't silently dismiss findings
 
 ## Integration with Workflows
 
-**Subagent-Driven Development:**
-- Review after EACH task
-- Catch issues before they compound
-- Fix before moving to next task
-
 **Executing Plans:**
-- Review after each batch (3 tasks)
-- Get feedback, apply, continue
+- Review after completing each logical chunk of work
+- Fix issues, then continue
 
 **Ad-Hoc Development:**
 - Review before merge
@@ -93,13 +63,6 @@ You: [Fix progress indicators]
 
 **Never:**
 - Skip review because "it's simple"
-- Ignore Critical issues
-- Proceed with unfixed Important issues
-- Argue with valid technical feedback
-
-**If reviewer wrong:**
-- Push back with technical reasoning
-- Show code/tests that prove it works
-- Request clarification
-
-See template at: requesting-code-review/code-reviewer.md
+- Claim completion without reviewing the diff
+- Dismiss your own findings as "minor"
+- Review only the last file you touched — review ALL changes
