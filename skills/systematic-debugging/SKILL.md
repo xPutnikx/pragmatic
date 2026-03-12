@@ -144,28 +144,68 @@ You MUST complete each phase before proceeding to the next.
 
 ### Phase 3: Hypothesis and Testing
 
-**Scientific method:**
+**Create a debugging document.** Before testing anything, write down your thinking. This prevents going in circles and keeps the investigation systematic.
 
-1. **Form Single Hypothesis**
-   - State clearly: "I think X is the root cause because Y"
-   - Write it down
-   - Be specific, not vague
+**Step 1: Create the debugging document** (save as `docs/debugging/YYYY-MM-DD-<issue>.md` or wherever the project keeps notes):
 
-2. **Test Minimally**
-   - Make the SMALLEST possible change to test hypothesis
+```markdown
+# Debugging: [Brief description of the issue]
+
+## Symptom
+[What's happening, error messages, reproduction steps]
+
+## Hypotheses
+
+| # | Potential Root Cause | Probability | Reasoning | Status |
+|---|---------------------|-------------|-----------|--------|
+| 1 | [Hypothesis] | High/Med/Low | [Why you think this] | Untested |
+| 2 | [Hypothesis] | High/Med/Low | [Why you think this] | Untested |
+| 3 | [Hypothesis] | High/Med/Low | [Why you think this] | Untested |
+
+## Investigation Log
+
+### Hypothesis 1: [Name]
+- **Test:** [What you did to test it]
+- **Result:** [What happened]
+- **Conclusion:** Confirmed / Eliminated / Partially explains
+- **Side effects:** [Did testing reveal anything else?]
+```
+
+**Step 2: Self-check your hypotheses.** Before testing, review each one:
+- Is this based on evidence from Phase 1/2, or am I guessing?
+- Could this be a hallucinated cause that sounds plausible but has no evidence?
+- Assign honest probabilities. If everything is "High," you're not being rigorous.
+
+**Step 3: Test hypotheses in priority order (highest probability first):**
+
+1. **Test Minimally**
+   - Make the SMALLEST possible change to test the hypothesis
    - One variable at a time
    - Don't fix multiple things at once
 
-3. **Verify Before Continuing**
-   - Did it work? Yes → Phase 4
-   - Didn't work? Form NEW hypothesis
-   - DON'T add more fixes on top
+2. **Update the document** after each test:
+   - Mark the hypothesis as Confirmed / Eliminated / Needs more data
+   - Record what you learned, including unexpected findings
+   - Note any side effects or new information
 
-4. **When You Don't Know**
-   - Say "I don't understand X"
-   - Don't pretend to know
-   - Ask for help
-   - Research more
+3. **Get developer feedback** — share what you found, ask if it matches what they're seeing
+
+4. **If hypothesis confirmed** → Phase 4
+5. **If eliminated** → move to next hypothesis
+
+**Step 4: When all hypotheses are exhausted:**
+- Review the debugging document — what have you learned?
+- Generate new hypotheses based on accumulated evidence
+- Add them to the document with probabilities
+- Continue testing
+
+**The document prevents circles.** When you're tempted to re-test something, check the document first — you may have already eliminated it.
+
+**When You Don't Know:**
+- Say "I don't understand X"
+- Don't pretend to know
+- Ask for help
+- Research more
 
 ### Phase 4: Implementation
 
@@ -176,7 +216,7 @@ You MUST complete each phase before proceeding to the next.
    - Automated test if possible
    - One-off test script if no framework
    - MUST have before fixing
-   - Use the `superpowers:test-driven-development` skill for writing proper failing tests
+   - Use the `pragmatic:test-driven-development` skill for writing proper failing tests
 
 2. **Implement Single Fix**
    - Address the root cause identified
@@ -208,7 +248,7 @@ You MUST complete each phase before proceeding to the next.
    - Are we "sticking with it through sheer inertia"?
    - Should we refactor architecture vs. continue fixing symptoms?
 
-   **Discuss with your human partner before attempting more fixes**
+   **Discuss with the developer before attempting more fixes**
 
    This is NOT a failed hypothesis - this is a wrong architecture.
 
@@ -231,7 +271,22 @@ If you catch yourself thinking:
 
 **If 3+ fixes failed:** Question the architecture (see Phase 4.5)
 
-## your human partner's Signals You're Doing It Wrong
+## Trust the Developer's Input
+
+**When the developer tells you what they observed, trust it.** Their input is evidence, just like code and logs.
+
+| Wrong | Right |
+|-------|-------|
+| "Did you restart the server?" (after they said they did) | "You restarted and it still fails — let me look at what else could cause this" |
+| "Try clearing the cache" (repeating a suggestion they already tried) | "Since clearing cache didn't help, the issue isn't cached state — let me trace deeper" |
+| "Are you sure the request reached the endpoint?" | "Since the request isn't working, let me check the endpoint handler and middleware" |
+| "Maybe the change didn't deploy" | "Let me verify what's actually running and trace the request path" |
+
+**The developer is sitting in front of the application.** They can see things you can't. When they say "I did X and Y happened," incorporate that as fact into your investigation. Don't waste their time asking them to retry what they already tried.
+
+**User observations narrow the search space.** Every piece of feedback from the developer is a data point. Use it. A developer saying "it still doesn't work after restart" eliminates an entire class of hypotheses. Move forward, not backward.
+
+## Developer Signals You're Doing It Wrong
 
 **Watch for these redirections:**
 - "Is that not happening?" - You assumed without verifying
@@ -239,6 +294,7 @@ If you catch yourself thinking:
 - "Stop guessing" - You're proposing fixes without understanding
 - "Ultrathink this" - Question fundamentals, not just symptoms
 - "We're stuck?" (frustrated) - Your approach isn't working
+- "I already tried that" - You're not listening to their input
 
 **When you see these:** STOP. Return to Phase 1.
 
@@ -284,8 +340,8 @@ These techniques are part of systematic debugging and available in this director
 - **`condition-based-waiting.md`** - Replace arbitrary timeouts with condition polling
 
 **Related skills:**
-- **superpowers:test-driven-development** - For creating failing test case (Phase 4, Step 1)
-- **superpowers:verification-before-completion** - Verify fix worked before claiming success
+- **pragmatic:test-driven-development** - For creating failing test case (Phase 4, Step 1)
+- **pragmatic:verification-before-completion** - Verify fix worked before claiming success
 
 ## Real-World Impact
 
