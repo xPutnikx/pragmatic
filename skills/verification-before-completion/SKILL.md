@@ -44,10 +44,34 @@ Skip any step = lying, not verifying
 | Tests pass | Test command output: 0 failures | Previous run, "should pass" |
 | Linter clean | Linter output: 0 errors | Partial check, extrapolation |
 | Build succeeds | Build command: exit 0 | Linter passing, logs look good |
+| **Actually runs** | **Start the application, hit the endpoint/render the page** | **Build succeeds, tests pass** |
 | Bug fixed | Test original symptom: passes | Code changed, assumed fixed |
 | Regression test works | Red-green cycle verified | Test passes once |
 | Agent completed | VCS diff shows changes | Agent reports "success" |
 | Requirements met | Line-by-line checklist | Tests passing |
+| **Feature complete** | **Every user path works end-to-end** | **Code exists, tests pass** |
+
+## Runtime Verification
+
+**Tests passing and builds succeeding do not mean the application works.** Many languages (Java, Kotlin, JavaScript) can pass compilation but fail at runtime. You MUST verify the application actually runs:
+
+- **Backend:** Start the server, send a request to the endpoint you changed. Verify the response.
+- **Frontend:** Render the page/component. Verify it displays correctly.
+- **Full stack:** Verify the UI calls the backend and the response flows back correctly.
+
+This catches: missing runtime dependencies, incorrect wiring, serialization issues, configuration problems, and integration failures that unit tests don't cover.
+
+## Feature Completeness
+
+Before claiming a feature is done, verify completeness — not just that code works:
+
+1. **Missing requirements** — compare the plan/spec line-by-line to what was implemented. Flag anything missing.
+2. **UX gaps** — missing loading states, error states, empty states, disabled states.
+3. **User flow completeness** — trace every user action from trigger to result. Flag dead ends. If you built an endpoint, is there a UI button that calls it? If you built a function, is it wired into the flow?
+4. **Edge cases** — empty data, max values, rapid repeated actions, error responses.
+5. **Backward compatibility** — do existing features still work after this change?
+
+**The most common gap:** implementing backend logic without wiring it to the frontend, or vice versa.
 
 ## Red Flags - STOP
 
@@ -108,7 +132,7 @@ Skip any step = lying, not verifying
 ## Why This Matters
 
 From 24 failure memories:
-- your human partner said "I don't believe you" - trust broken
+- the developer said "I don't believe you" - trust broken
 - Undefined functions shipped - would crash
 - Missing requirements shipped - incomplete features
 - Time wasted on false completion → redirect → rework
