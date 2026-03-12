@@ -1,13 +1,13 @@
 {
-  "name": "superpowers",
-  "description": "Core skills library for Claude Code: TDD, debugging, collaboration patterns, and proven techniques",
-  "version": "5.0.2",
+  "name": "pragmatic",
+  "description": "Pragmatic skills library for Claude Code: research-first development, concise planning, DRY/SOLID principles",
+  "version": "0.1.0",
   "author": {
-    "name": "Jesse Vincent",
-    "email": "jesse@fsck.com"
+    "name": "Vlad Putnik",
+    "email": ""
   },
-  "homepage": "https://github.com/obra/superpowers",
-  "repository": "https://github.com/obra/superpowers",
+  "homepage": "https://github.com/xPutnikx/pragmatic",
+  "repository": "https://github.com/xPutnikx/pragmatic",
   "license": "MIT",
-  "keywords": ["skills", "tdd", "debugging", "collaboration", "best-practices", "workflows"]
+  "keywords": ["skills", "pragmatic", "planning", "solid", "dry", "best-practices"]
 }

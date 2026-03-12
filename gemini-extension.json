@@ -1,6 +1,6 @@
 {
-  "name": "superpowers",
-  "description": "Core skills library: TDD, debugging, collaboration patterns, and proven techniques",
-  "version": "5.0.0",
+  "name": "pragmatic",
+  "description": "Pragmatic skills library: research-first development, concise planning, DRY/SOLID principles",
+  "version": "0.1.0",
   "contextFileName": "GEMINI.md"
 }
