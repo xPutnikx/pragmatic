@@ -1,6 +1,8 @@
 # Pragmatic
 
-Pragmatic is a skills plugin for coding agents that enforces disciplined, research-first software development. No ceremony, no bloat — just thoughtful planning and principled execution.
+A fork of [Superpowers](https://github.com/obra/superpowers) — rebuilt for senior developers who understand what they're doing.
+
+No subagents, no git worktrees, no code dumps in plans, no TodoWrite ceremony, no feature bloat. Just disciplined, research-first software development with concise skills that trust the developer.
 
 ## How it works
 
@@ -55,23 +57,34 @@ Start a new session and ask for something that should trigger a skill (for examp
 - **receiving-code-review** — Responding to feedback
 
 **Meta**
-- **writing-skills** — Create new skills following best practices
 - **using-pragmatic** — Introduction to the skills system
+
+## What's different from Superpowers
+
+| Superpowers | Pragmatic |
+|-------------|-----------|
+| Plans contain full code blocks | Plans define interfaces and responsibilities |
+| Dispatches subagents per task | Executes in the main session with full context |
+| Git worktree workflows | Works directly on the current branch |
+| TodoWrite task tracking ceremony | Just does the work |
+| 12-row rationalization tables | Concise, scannable instructions |
+| Assumes you need hand-holding | Assumes you're a senior developer |
 
 ## Philosophy
 
 - **Research before implementing** — Understand what exists before writing new code
 - **Reuse before creating** — The best code is code you don't write
 - **DRY/SOLID always** — Principles, not suggestions
+- **Questions get answers, not code changes** — If you ask "how does X work?", you get an explanation, not a refactor
+- **Boy Scout Rule** — Fix problems you encounter, never say "this is prior to our changes"
+- **Trust the developer** — When told "the bug is in X", investigate X first
 - **Pragmatic over ceremonial** — Do what works, skip what doesn't
-- **Evidence over claims** — Verify before declaring success
 
 ## Contributing
 
 1. Fork the repository
 2. Create a branch for your skill
-3. Follow the `writing-skills` skill for creating and testing new skills
-4. Submit a PR
+3. Submit a PR
 
 ## License
 
