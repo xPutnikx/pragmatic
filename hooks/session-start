@@ -15,7 +15,7 @@ if [ -d "$legacy_skills_dir" ]; then
 fi
 
 # Read using-pragmatic content
-using_superpowers_content=$(cat "${PLUGIN_ROOT}/skills/using-pragmatic/SKILL.md" 2>&1 || echo "Error reading using-pragmatic skill")
+using_pragmatic_content=$(cat "${PLUGIN_ROOT}/skills/using-pragmatic/SKILL.md" 2>&1 || echo "Error reading using-pragmatic skill")
 
 # Escape string for JSON embedding using bash parameter substitution.
 # Each ${s//old/new} is a single C-level pass - orders of magnitude
@@ -30,9 +30,9 @@ escape_for_json() {
     printf '%s' "$s"
 }
 
-using_superpowers_escaped=$(escape_for_json "$using_superpowers_content")
+using_pragmatic_escaped=$(escape_for_json "$using_pragmatic_content")
 warning_escaped=$(escape_for_json "$warning_message")
-session_context="<EXTREMELY_IMPORTANT>\nYou have Pragmatic skills loaded.\n\n**Below is the full content of your 'pragmatic:using-pragmatic' skill - your introduction to using skills. For all other skills, use the 'Skill' tool:**\n\n${using_superpowers_escaped}\n\n${warning_escaped}\n</EXTREMELY_IMPORTANT>"
+session_context="<EXTREMELY_IMPORTANT>\nYou have Pragmatic skills loaded.\n\n**Below is the full content of your 'pragmatic:using-pragmatic' skill - your introduction to using skills. For all other skills, use the 'Skill' tool:**\n\n${using_pragmatic_escaped}\n\n${warning_escaped}\n</EXTREMELY_IMPORTANT>"
 
 # Output context injection as JSON.
 # Cursor hooks expect additional_context.
