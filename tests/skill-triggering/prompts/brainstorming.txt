@@ -1,0 +1,3 @@
+I'm thinking about adding a real-time notification system to our app. There are a few approaches - WebSockets, Server-Sent Events, or polling. Each has trade-offs around complexity, scalability, and browser support.
+
+Can you help me think through the options and figure out which approach makes the most sense for our use case? We have about 10k concurrent users and need sub-second delivery for critical alerts.

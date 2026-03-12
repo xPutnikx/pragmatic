@@ -15,7 +15,7 @@ MAX_TURNS="${3:-3}"
 
 if [ -z "$SKILL_NAME" ] || [ -z "$PROMPT_FILE" ]; then
     echo "Usage: $0 <skill-name> <prompt-file> [max-turns]"
-    echo "Example: $0 subagent-driven-development ./prompts/subagent-driven-development-please.txt"
+    echo "Example: $0 executing-plans ./prompts/use-executing-plans.txt"
     exit 1
 fi
 
@@ -102,12 +102,10 @@ echo "Checking for premature action..."
 # This detects the failure mode where Claude starts doing work without loading the skill
 FIRST_SKILL_LINE=$(grep -n '"name":"Skill"' "$LOG_FILE" | head -1 | cut -d: -f1)
 if [ -n "$FIRST_SKILL_LINE" ]; then
-    # Check if any non-Skill, non-system tools were invoked before the first Skill invocation
-    # Filter out system messages, TodoWrite (planning is ok), and other non-action tools
+    # Check if any non-Skill tools were invoked before the first Skill invocation
     PREMATURE_TOOLS=$(head -n "$FIRST_SKILL_LINE" "$LOG_FILE" | \
         grep '"type":"tool_use"' | \
-        grep -v '"name":"Skill"' | \
-        grep -v '"name":"TodoWrite"' || true)
+        grep -v '"name":"Skill"' || true)
     if [ -n "$PREMATURE_TOOLS" ]; then
         echo "WARNING: Tools invoked BEFORE Skill tool:"
         echo "$PREMATURE_TOOLS" | head -5

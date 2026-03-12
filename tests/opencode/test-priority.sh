@@ -22,13 +22,13 @@ mkdir -p "$HOME/.config/opencode/pragmatic/skills/priority-test"
 cat > "$HOME/.config/opencode/pragmatic/skills/priority-test/SKILL.md" <<'EOF'
 ---
 name: priority-test
-description: Superpowers version of priority test skill
+description: Pragmatic version of priority test skill
 ---
-# Priority Test Skill (Superpowers Version)
+# Priority Test Skill (Pragmatic Version)
 
-This is the SUPERPOWERS version of the priority test skill.
+This is the PRAGMATIC version of the priority test skill.
 
-PRIORITY_MARKER_SUPERPOWERS_VERSION
+PRIORITY_MARKER_PRAGMATIC_VERSION
 EOF
 
 # 2. Create in personal location (medium priority)
@@ -66,9 +66,9 @@ echo ""
 echo "Test 1: Verifying test fixtures..."
 
 if [ -f "$HOME/.config/opencode/pragmatic/skills/priority-test/SKILL.md" ]; then
-    echo "  [PASS] Superpowers version exists"
+    echo "  [PASS] Pragmatic version exists"
 else
-    echo "  [FAIL] Superpowers version missing"
+    echo "  [FAIL] Pragmatic version missing"
     exit 1
 fi
 
@@ -113,8 +113,8 @@ output=$(timeout 60s opencode run --print-logs "Use the use_skill tool to load t
 
 if echo "$output" | grep -qi "PRIORITY_MARKER_PERSONAL_VERSION"; then
     echo "  [PASS] Personal version loaded (overrides pragmatic)"
-elif echo "$output" | grep -qi "PRIORITY_MARKER_SUPERPOWERS_VERSION"; then
-    echo "  [FAIL] Superpowers version loaded instead of personal"
+elif echo "$output" | grep -qi "PRIORITY_MARKER_PRAGMATIC_VERSION"; then
+    echo "  [FAIL] Pragmatic version loaded instead of personal"
     exit 1
 else
     echo "  [WARN] Could not verify priority marker in output"
@@ -142,8 +142,8 @@ if echo "$output" | grep -qi "PRIORITY_MARKER_PROJECT_VERSION"; then
 elif echo "$output" | grep -qi "PRIORITY_MARKER_PERSONAL_VERSION"; then
     echo "  [FAIL] Personal version loaded instead of project"
     exit 1
-elif echo "$output" | grep -qi "PRIORITY_MARKER_SUPERPOWERS_VERSION"; then
-    echo "  [FAIL] Superpowers version loaded instead of project"
+elif echo "$output" | grep -qi "PRIORITY_MARKER_PRAGMATIC_VERSION"; then
+    echo "  [FAIL] Pragmatic version loaded instead of project"
     exit 1
 else
     echo "  [WARN] Could not verify priority marker in output"
@@ -164,7 +164,7 @@ output=$(timeout 60s opencode run --print-logs "Use the use_skill tool to load p
     fi
 }
 
-if echo "$output" | grep -qi "PRIORITY_MARKER_SUPERPOWERS_VERSION"; then
+if echo "$output" | grep -qi "PRIORITY_MARKER_PRAGMATIC_VERSION"; then
     echo "  [PASS] pragmatic: prefix correctly forces pragmatic version"
 elif echo "$output" | grep -qi "PRIORITY_MARKER_PROJECT_VERSION\|PRIORITY_MARKER_PERSONAL_VERSION"; then
     echo "  [FAIL] pragmatic: prefix did not force pragmatic version"

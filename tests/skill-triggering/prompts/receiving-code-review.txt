@@ -1,0 +1,7 @@
+I got code review feedback on my PR. Here are the comments:
+
+1. The error handling in `processPayment()` swallows exceptions silently
+2. The retry logic doesn't have exponential backoff
+3. Missing input validation on the amount parameter
+
+Can you help me address these review comments?

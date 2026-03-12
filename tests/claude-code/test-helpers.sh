@@ -150,40 +150,30 @@ create_test_plan() {
     cat > "$plan_file" <<'EOF'
 # Test Implementation Plan
 
-## Task 1: Create Hello Function
-
-Create a simple hello function that returns "Hello, World!".
+## Task 1: Create Hello Module
 
 **File:** `src/hello.js`
 
-**Implementation:**
-```javascript
-export function hello() {
-  return "Hello, World!";
-}
-```
+**Interface:** `hello() -> string`
 
-**Tests:** Write a test that verifies the function returns the expected string.
+**Responsibility:** Returns a greeting string "Hello, World!". Pure function, no side effects.
+
+**Tests:** Verify the function returns the expected greeting string.
 
 **Verification:** `npm test`
 
-## Task 2: Create Goodbye Function
-
-Create a goodbye function that takes a name and returns a goodbye message.
+## Task 2: Create Goodbye Module
 
 **File:** `src/goodbye.js`
 
-**Implementation:**
-```javascript
-export function goodbye(name) {
-  return `Goodbye, ${name}!`;
-}
-```
+**Interface:** `goodbye(name: string) -> string`
 
-**Tests:** Write tests for:
-- Default name
-- Custom name
-- Edge cases (empty string, null)
+**Responsibility:** Takes a name parameter and returns a formatted goodbye message. Should handle edge cases (empty string, null) gracefully.
+
+**Tests:**
+- Returns correct message with a valid name
+- Handles empty string input
+- Handles null/undefined input
 
 **Verification:** `npm test`
 EOF
