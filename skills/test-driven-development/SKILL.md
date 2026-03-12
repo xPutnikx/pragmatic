@@ -21,7 +21,7 @@ Write the test first. Watch it fail. Write minimal code to pass.
 - Refactoring
 - Behavior changes
 
-**Exceptions (ask your human partner):**
+**Exceptions (ask the developer):**
 - Throwaway prototypes
 - Generated code
 - Configuration files
@@ -339,14 +339,38 @@ Before marking work complete:
 
 Can't check all boxes? You skipped TDD. Start over.
 
+## Testability First — Never Fake It
+
+When writing tests for existing code, you will encounter code that is hard to test — classes that depend on concrete implementations instead of interfaces/protocols, tightly coupled components, static method calls, singletons.
+
+**The correct response is to make the code testable, not to fake around it.**
+
+| Situation | Wrong | Right |
+|-----------|-------|-------|
+| Class uses concrete dependency | Write a fake implementation that mimics the dependency just for tests | Refactor to accept an interface/protocol, inject the dependency |
+| Method calls static/global state | Create a test-only wrapper or mock the global | Extract the dependency, pass it in |
+| Code is tightly coupled | Write an elaborate test harness that mirrors production wiring | Decouple the components, test each independently |
+| Can't instantiate class in test | Create a test subclass that overrides internals | Fix the constructor to accept dependencies |
+
+**A test that exercises a fake implementation you wrote specifically to make the test pass tests nothing.** It proves your fake works, not the production code. This is the most common testing anti-pattern AI agents produce.
+
+**When code is not testable:**
+1. Flag it to the developer: "This code uses a concrete implementation of X, making it untestable without a refactor"
+2. Suggest the minimal refactor: extract interface, add dependency injection
+3. Only proceed with the refactor after the developer agrees
+4. Then write proper tests against the refactored code
+
+Never silently create fake/stub implementations just to get a green test. That's lying with code.
+
 ## When Stuck
 
 | Problem | Solution |
 |---------|----------|
-| Don't know how to test | Write wished-for API. Write assertion first. Ask your human partner. |
+| Don't know how to test | Write wished-for API. Write assertion first. Ask the developer. |
 | Test too complicated | Design too complicated. Simplify interface. |
 | Must mock everything | Code too coupled. Use dependency injection. |
 | Test setup huge | Extract helpers. Still complex? Simplify design. |
+| Existing code untestable | Flag it. Suggest refactor. Don't fake around it. |
 
 ## Debugging Integration
 
@@ -368,4 +392,4 @@ Production code → test exists and failed first
 Otherwise → not TDD
 ```
 
-No exceptions without your human partner's permission.
+No exceptions without the developer's permission.
