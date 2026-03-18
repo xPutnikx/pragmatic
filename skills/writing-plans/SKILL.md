@@ -13,6 +13,7 @@ Create concise, scannable implementation plans that describe WHAT to build and H
 
 **Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
 - User preferences for plan location override this default
+- **NEVER save plans to memory** — plans belong in the project as files, not in the memory system
 
 ## Two Types of Plans
 

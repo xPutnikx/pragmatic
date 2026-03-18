@@ -15,6 +15,8 @@ Load the plan, research the codebase, implement each task pragmatically. Work in
 
 ### Step 1: Load and Understand the Plan
 
+Plans are always stored as project files (e.g., `docs/plans/YYYY-MM-DD-<feature-name>.md`). Never in memory.
+
 1. Read the plan file
 2. Understand the goal and architecture
 3. Identify any questions or concerns — raise them with the user before starting
