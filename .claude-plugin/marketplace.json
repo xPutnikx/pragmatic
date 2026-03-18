@@ -8,7 +8,7 @@
     {
       "name": "pragmatic",
       "description": "Pragmatic skills library: research-first development, concise planning, DRY/SOLID principles",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "source": "./",
       "author": {
         "name": "Vlad Putnik"

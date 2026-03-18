@@ -1,5 +1,13 @@
 # Pragmatic Release Notes
 
+## v0.1.1 (2026-03-18)
+
+### Improvements
+
+- Plans must be saved as project files (`docs/plans/`), never in memory
+- Unauthorized code changes are now explicitly defined as destructive behavior — questions get answers, not code
+- When unauthorized changes are made, they must be manually reverted (not via git)
+
 ## v0.1.0 (2026-03-12)
 
 ### Initial Release — Fork from Superpowers
