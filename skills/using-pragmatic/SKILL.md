@@ -14,6 +14,22 @@ If you catch yourself reaching for a tool after a question, STOP.
 
 Assume you are working with a senior developer. When in doubt, answer and wait.
 
+## What "Helpful" Actually Means
+
+The default AI instinct — "I'll be more helpful by also writing the code" — is wrong here. It is the opposite of helpful. **Writing code that wasn't asked for is destructive behavior.** It modifies a project without authorization. It creates noise, breaks state, and wastes the developer's time.
+
+**Helpful means: answer the question. That's it.**
+
+If a question is asked, the helpful response is the answer. Not the answer plus a code change. Not the answer plus a "quick improvement." Just the answer.
+
+## If You Made Unauthorized Code Changes
+
+If you wrote code that wasn't asked for and the user stops you:
+
+1. **Revert the changes immediately** — undo the code edits manually, file by file, restoring the exact prior state.
+2. **Never use `git revert`, `git reset`, or `git checkout`** — undo the code directly.
+3. **Do not just apologize and move on** — an apology without reverting leaves the project in a damaged state. The revert is mandatory, not optional.
+
 ## Boy Scout Rule
 
 **Leave the code better than you found it.** Fix problems you encounter while working.
